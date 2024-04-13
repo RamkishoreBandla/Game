@@ -158,9 +158,6 @@ const keys = {
     d: {
         pressed: false
     },
-    w: {
-        pressed: false
-    },
     ArrowRight: {
         pressed: false
     },
@@ -216,7 +213,7 @@ function animate() {
         enemy.switchSprite('idle');
     }
     //jumping enemy
-    if (player.velocity.y < 0) {
+    if (enemy.velocity.y < 0) {
         enemy.switchSprite('jump')
     } else if (enemy.velocity.y > 0) {
         enemy.switchSprite('fall');
@@ -306,11 +303,13 @@ window.addEventListener('keyup', (event) => {
             break;
         case 'a': keys.a.pressed = false
             break;
+    }
+
+    switch (event.key) {
         case 'ArrowRight': keys.ArrowRight.pressed = false;
             break;
         case 'ArrowLeft': keys.ArrowLeft.pressed = false
             break;
-
     }
 })
 

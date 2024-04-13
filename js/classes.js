@@ -1,9 +1,7 @@
 class Sprite {
     constructor({ position, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 } }) {
         this.position = position;
-
         this.height = 150
-
         this.width = 50
         this.image = new Image()
         this.image.src = imageSrc
@@ -48,8 +46,6 @@ class Sprite {
 
 class Fighter extends Sprite {
     constructor({ position, velocity, color = 'red', imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }, sprites, attackBox = { offset: {}, width: undefined, height: undefined } }) {
-
-
         super({
             position,
             imageSrc,
@@ -86,14 +82,14 @@ class Fighter extends Sprite {
             sprites[sprite].image = new Image()
             sprites[sprite].image.src = sprites[sprite].imageSrc;
         }
-        console.log(this.sprites);
+       
     }
 
 
 
     update() {
         this.draw();
-        if (this.dead)
+        if (!this.dead)
             this.animateFrame();
 
         //attack boxes
@@ -138,14 +134,15 @@ class Fighter extends Sprite {
     switchSprite(sprite) {
 
         if (this.image === this.sprites.death.image) {
-            if (this.framesCurrent === this.sprites.dead.framesMax - 1)
+            if (this.framesCurrent === this.sprites.death.framesMax - 1)
                 this.dead = true
             
                 return
         }
 
         //overriding all other animations
-        if (this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax - 1) return
+        if (this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax - 1)
+         return
 
         //override when fighter gets hit
         if (this.image === this.sprites.takeHit.image && this.framesCurrent < this.sprites.takeHit.framesMax - 1)
