@@ -45,7 +45,7 @@ class Sprite {
 }
 
 class Fighter extends Sprite {
-    constructor({ position, velocity, color = 'red', imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }, sprites, attackBox = { offset: {}, width: undefined, height: undefined } }) {
+    constructor({ position, velocity,prevVelocity, color = 'red', imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }, sprites, attackBox = { offset: {}, width: undefined, height: undefined } }) {
         super({
             position,
             imageSrc,
@@ -56,6 +56,7 @@ class Fighter extends Sprite {
 
 
         this.velocity = velocity;
+        this.prevVelocity=prevVelocity;
         this.height = 150
         this.lastKey
         this.width = 50
@@ -106,7 +107,9 @@ class Fighter extends Sprite {
             this.velocity.y = 0;
             this.position.y = 330
         } else {
+            this.prevVelocity.y=this.velocity.y
             this.velocity.y += gravity;
+            // console.log(this.prevVelocity,this.velocity);
         }
 
     }

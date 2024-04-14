@@ -36,6 +36,11 @@ const player = new Fighter({
         x: 0,
         y: 0
     },
+    prevVelocity:{
+        x:0,
+        y:0
+    }
+    ,
     offset: {
         x: 0,
         y: 0
@@ -96,6 +101,10 @@ const enemy = new Fighter({
     velocity: {
         x: 0,
         y: 0
+    },
+    prevVelocity:{
+        x:0,
+        y:0
     },
     offset: {
         x: -50,
@@ -195,7 +204,7 @@ function animate() {
     }
 
     //jumping player
-    if (player.velocity.y < 0) {
+    if (player.velocity.y < 0 ) {
         player.switchSprite('jump')
     } else if (player.velocity.y > 0) {
         player.switchSprite('fall');
@@ -271,7 +280,11 @@ window.addEventListener('keydown', (event) => {
             case 'a': keys.a.pressed = true;
                 player.lastKey = 'a'
                 break;
-            case 'w': player.velocity.y = -20;
+            case 'w':     
+            if(player.prevVelocity.y>18){
+            player.velocity.y = -20;
+            // console.log(player.prevVelocity, player.velocity);
+            }
                 break;
 
             case ' ': player.attack()
@@ -288,7 +301,12 @@ window.addEventListener('keydown', (event) => {
             case 'ArrowLeft': keys.ArrowLeft.pressed = true;
                 enemy.lastKey = 'ArrowLeft';
                 break;
-            case 'ArrowUp': enemy.velocity.y = -20;
+            case 'ArrowUp':
+                if(enemy.prevVelocity.y>18){
+                    enemy.velocity.y = -20;
+                    // console.log(player.prevVelocity, player.velocity);
+                    }    
+          
                 break;
             case 'ArrowDown': enemy.attack()
                 break;
