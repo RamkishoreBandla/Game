@@ -33,18 +33,17 @@ function decreaseTimer() {
         document.querySelector('#timer').innerHTML = timer;
     }
     if (timer == 0) { //when timer ends kill both players
-        for (let i = 1; i <= 5; i++) {
-            player.takeHit()
-            enemy.takeHit()
-            gsap.to('#playerHealth', {
+    
+        player.health-=100
+        enemy.health-=100
+             gsap.to('#playerHealth', {
                 width: player.health + '%'
             })
             gsap.to('#enemyHealth', {
                 width: enemy.health + '%'
             })
-        }
-        player.dead=true;
-        enemy.dead=true;
+        player.switchSprite('death')
+        enemy.switchSprite('death');
 
 
         determineWinner({ player, enemy, timerId });
