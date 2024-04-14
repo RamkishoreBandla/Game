@@ -126,9 +126,6 @@ class Fighter extends Sprite {
         else {
             this.switchSprite('takeHit');
         }
-
-
-
     }
 
     switchSprite(sprite) {

@@ -10,27 +10,43 @@ function determineWinner({ player, enemy, timerId }) {
     clearTimeout(timerId)
     document.querySelector('#displayText').style.display = 'flex';
     if (player.health === enemy.health) {
+        // player.health=-100
+        // enemy.health=-100
         document.querySelector('#displayText').innerHTML = 'Tie';
     }
     else if (player.health > enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
+        document.querySelector('#displayText').innerHTML = 'Player 1 Won';
     }
     else if (player.health < enemy.health) {
-        document.querySelector("#displayText").innerHTML = 'Player 2 Wins';
+        document.querySelector("#displayText").innerHTML = 'Player 2 Won';
     }
 }
 
-let timer = 90;
+let timer = 45;
 let timerId
 function decreaseTimer() {
 
-   
+
     if (timer > 0) {
         timerId = setTimeout(decreaseTimer, 1000)
         timer--
         document.querySelector('#timer').innerHTML = timer;
     }
-    if (timer == 0) {
+    if (timer == 0) { //when timer ends kill both players
+        for (let i = 1; i <= 5; i++) {
+            player.takeHit()
+            enemy.takeHit()
+            gsap.to('#playerHealth', {
+                width: player.health + '%'
+            })
+            gsap.to('#enemyHealth', {
+                width: enemy.health + '%'
+            })
+        }
+        player.dead=true;
+        enemy.dead=true;
+
+
         determineWinner({ player, enemy, timerId });
     }
 
